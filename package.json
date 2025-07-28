@@ -1,0 +1,22 @@
+{
+  "name": "quinopom",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marceloirusta/QuinoPOM.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marceloirusta/QuinoPOM/issues"
+  },
+  "homepage": "https://github.com/marceloirusta/QuinoPOM#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.54.1",
+    "@types/node": "^24.1.0"
+  }
+}
