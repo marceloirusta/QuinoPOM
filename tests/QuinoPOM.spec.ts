@@ -6,12 +6,12 @@ test('Automation exercise', async ({ browser }) => {
     const page = await context.newPage();
 
     const pageManager = new PageManager(page);
-    const mainPage = pageManager.getMainPage()
+    const mainPage = await pageManager.getMainPage()
 
     await mainPage.goTo();
     await mainPage.clickOnContactUs()
     
-    const contactUsPage = pageManager.getContactUsPage()
+    const contactUsPage = await pageManager.getContactUsPage()
     await contactUsPage.fillForm('Marcelo', 'marcelo@ejemplo.com', 'Subject Example', 'Message example')
 });
 

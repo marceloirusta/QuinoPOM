@@ -9,6 +9,7 @@ class ContactUsPage {
     private subjectElement: Locator;
     private messageElement: Locator;
     private submitButton: Locator;
+    private formConfirmationMessage: Locator;
 
     constructor(page) {
         this.page = page;
@@ -17,21 +18,27 @@ class ContactUsPage {
         this.subjectElement = page.locator(ContactUsPageLocators.subject);
         this.messageElement = page.locator(ContactUsPageLocators.message);
         this.submitButton = page.locator(ContactUsPageLocators.submitButton)
-    
+        this.formConfirmationMessage = page.locator(ContactUsPageLocators.formConfirmationMessage);
+
 
     }
 
-    async fillForm(name: string, email: string, subject: string, message: string) {
-        await this.nameElement.fill(name);
-        await this.emailElement.fill(email);
-        await this.subjectElement.fill(subject);
-        await this.messageElement.fill(message);
-        await this.submitButton.click();
-        await this.page.waitForLoadState('networkidle');
+async fillForm(name: string, email: string, subject: string, message: string) {
+    await this.nameElement.fill(name);
+    await this.emailElement.fill(email);
+    await this.subjectElement.fill(subject);
+    await this.messageElement.fill(message);
 
+    this.page.once('dialog', async (dialog) => {
+        expect(dialog.type()).toBe('confirm');
+        await dialog.accept();
+    });
 
-        expect(await this.page.locator("//h2[normalize-space()='GET IN TOUCH']").isVisible()).toBeTruthy();
-    }
+    await this.submitButton.click();
+    await this.page.waitForLoadState('networkidle');
+
+    expect(await this.formConfirmationMessage.isVisible()).toBeTruthy();
+}
 
 }
 
